@@ -7,20 +7,21 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     /*
-     * 🎨 REFINAMENTO VISUAL: PRETO, BRANCO E CLEAN COM NOVA LOGO
+     * 🎨 REFINAMENTO VISUAL: PRETO, BRANCO E CLEAN
+     * OTIMIZAÇÃO: Estrutura clean, Mobile-First e TODAS as classes prefixadas com loop_
      */
     :root {
-      --bg: #000000; /* Fundo preto puro */
-      --bg-soft: #080808; /* Um tom de preto muito suave para elementos próximos */
-      --card: #121212; /* Fundo de card sutilmente mais claro que o bg */
-      --card-soft: #1a1a1a;
-      --accent: #f5b86b; /* Dourado para destaque sutil (métricas) */
-      --accent-soft: rgba(245, 184, 107, 0.1);
-      --text: #ffffff; /* Texto branco puro */
-      --muted: #a0a0a0; /* Cinza claro para texto secundário */
-      --border: #222222; /* Borda cinza escura sutil */
+      --bg: #000000;
+      --bg-soft: #080808;
+      --card: #121212;
+      --accent: #f5b86b; /* Dourado */
+      --text: #ffffff;
+      --muted: #a0a0a0;
+      --border: #222222;
+      --whatsapp: #25D366; /* Cor oficial do WhatsApp */
       --radius-lg: 16px; 
       --radius-pill: 999px;
       --shadow-subtle: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -36,39 +37,98 @@
     }
 
     body {
-      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg);
       color: var(--text);
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
+      min-height: 100vh;
+      line-height: 1.5; 
     }
 
     a {
       color: inherit;
       text-decoration: none;
     }
-
+    
     img {
-      max-width: 100%;
-      display: block;
+        max-width: 100%;
+        display: block;
+        height: auto; 
     }
 
-    .page {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      background: var(--bg);
-    }
-
-    .container {
+    .loop_container {
       width: 100%;
       max-width: 1120px;
       margin: 0 auto;
-      padding: 2rem 1.5rem 6rem; /* Padding maior para mais respiro */
+      padding: 0 1.2rem; 
+    }
+    
+    .loop_section {
+      padding: 5rem 0; 
+      border-top: 1px solid var(--border);
+    }
+    
+    /* === UTILS === */
+    .loop_btn-primary, .loop_btn-ghost {
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: none;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    
+    .loop_btn-primary {
+      background: var(--text);
+      color: var(--bg);
+      box-shadow: var(--shadow-subtle);
     }
 
-    /* ================= NAV ================= */
-    .nav {
+    .loop_btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+      background: var(--muted);
+    }
+    
+    .loop_btn-ghost {
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: transparent; 
+    }
+
+    .loop_btn-ghost:hover {
+      border-color: var(--text);
+      color: var(--text);
+      background: var(--card);
+    }
+    
+    .loop_section-header {
+        margin-bottom: 3rem; 
+        display: flex; 
+        flex-direction: column; 
+        align-items: flex-start;
+    }
+    
+    .loop_section-kicker {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--muted); 
+      margin-bottom: 0.6rem;
+      display: block;
+    }
+
+    .loop_section-title {
+      font-size: clamp(1.8rem, 5vw, 2.2rem); 
+      letter-spacing: -0.04em;
+      line-height: 1.2;
+    }
+    
+    /* === NAV === */
+    .loop_nav {
       position: sticky;
       top: 0;
       z-index: 20;
@@ -77,328 +137,80 @@
       border-bottom: 1px solid var(--border);
     }
 
-    .nav-inner {
+    .loop_nav-inner {
       max-width: 1120px;
       margin: 0 auto;
-      padding: 1rem 1.5rem;
+      padding: 0.8rem 1.2rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 2rem;
     }
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      height: 34px; 
-    }
-
-    .logo img { 
-      height: 24px; 
-      width: auto;
-      filter: invert(100%); /* Garante que o logo seja branco (se a imagem for preta) */
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 2.2rem; 
-      font-size: 0.92rem;
-      color: var(--muted);
-      font-weight: 500;
-    }
-
-    .nav-links a {
-      position: relative;
-      padding-bottom: 0.25rem;
-      transition: color var(--transition);
-    }
-    
-    .nav-links a:hover {
-      color: var(--text);
-    }
-
-    .nav-links a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -4px; 
-      width: 0;
-      height: 1px; 
-      background: var(--text); 
-      transition: width var(--transition);
-    }
-
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-
-    /* BOTÕES: Estilo mais clean e elegante */
-    .nav-cta, .btn-primary {
-      padding: 0.75rem 1.5rem;
-      border-radius: var(--radius-pill);
-      background: var(--text); /* Botão primário branco */
-      color: var(--bg); /* Texto preto no botão branco */
-      font-size: 0.9rem;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      border: none;
-      cursor: pointer;
-      box-shadow: var(--shadow-subtle);
-      transition: all var(--transition);
-    }
-
-    .nav-cta:hover, .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-hover);
-      background: var(--muted); /* Fundo cinza claro no hover */
-      color: var(--bg); /* Texto preto no hover */
-    }
-    
-    .nav-cta span, .btn-primary span {
-        font-size: 1rem;
-    }
-
-    .btn-ghost {
-      padding: 0.75rem 1.4rem;
-      border-radius: var(--radius-pill);
-      border: 1px solid var(--border);
-      color: var(--muted);
-      font-size: 0.9rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      background: transparent; 
-      cursor: pointer;
-      transition: all var(--transition);
-    }
-
-    .btn-ghost:hover {
-      border-color: var(--text); /* Borda branca no hover */
-      color: var(--text);
-      background: var(--card); /* Fundo cinza escuro no hover */
-    }
-
-    /* ================= HERO ================= */
-    .hero {
-      padding-top: 5rem;
-      padding-bottom: 6rem;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-      gap: 4rem; 
-      align-items: center;
-    }
-
-    .hero-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      padding: 0.35rem 1.1rem;
-      border-radius: var(--radius-pill);
-      background: var(--bg-soft);
-      border: 1px solid var(--border);
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--muted);
-      margin-bottom: 1.5rem;
-      font-weight: 500;
-    }
-
-    .hero-pill-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: #22c55e; /* Mantém o verde para "ativo" */
-      box-shadow: 0 0 12px rgba(34, 197, 94, 0.7);
-    }
-
-    .hero-title {
-      font-size: clamp(2.8rem, 4.2vw + 1.5rem, 4.8rem); 
-      line-height: 1;
-      letter-spacing: -0.055em;
-      margin-bottom: 1.8rem;
-    }
-
-    .hero-title strong {
-      color: var(--text); 
-    }
-
-    .hero-subtitle {
+    .loop_nav-logo-text {
       font-size: 1.1rem;
+      letter-spacing: 0.1em;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    
+    .loop_nav-cta {
+        display: none; 
+    }
+
+    /* === HERO === */
+    .loop_hero {
+      padding: 4rem 0 6rem; 
+    }
+
+    .loop_hero-title {
+      font-size: clamp(2.4rem, 6vw + 1rem, 4.8rem); 
+      line-height: 1.1;
+      letter-spacing: -0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .loop_hero-subtitle {
+      font-size: 1.05rem; 
       color: var(--muted);
-      max-width: 36rem;
-      line-height: 1.7;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    .loop_hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem; 
       margin-bottom: 3rem;
     }
 
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      margin-bottom: 3rem;
-    }
-
-    .hero-metadata {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 3.5rem;
+    .loop_hero-metadata {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem; 
       font-size: 0.9rem;
       color: var(--muted);
     }
 
-    .hero-metadata strong {
+    .loop_hero-metadata strong {
       display: block;
       font-size: 1.1rem;
       color: var(--text);
       margin-bottom: 0.3rem;
     }
 
-    .hero-right {
-      position: relative;
+    .loop_hero-card {
+      margin-top: 4rem; 
     }
-
-    /* CARD: Estilo clean */
-    .hero-card {
-      border-radius: var(--radius-lg);
-      background: var(--card); 
-      border: 1px solid var(--border);
-      padding: 2.5rem 2.2rem;
-      box-shadow: var(--shadow-subtle); 
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-card-label {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: var(--muted);
-      margin-bottom: 0.8rem;
-    }
-
-    .hero-card-title {
-      font-size: 1.3rem;
-      margin-bottom: 1.6rem;
-    }
-
-    .hero-card-metric {
-      display: flex;
-      align-items: baseline;
-      gap: 0.6rem;
-      margin-bottom: 2rem;
-    }
-
-    .hero-card-metric strong {
-      font-size: 2.8rem; 
-      letter-spacing: -0.06em;
-      color: var(--accent); /* Dourado para o destaque numérico */
-    }
-
-    .hero-card-metric span {
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-
-    .hero-card-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 1.8rem;
-      font-size: 0.9rem;
-      color: var(--muted);
-      margin-bottom: 1.5rem;
-    }
-
-    .hero-card-tag {
-      padding: 0.45rem 1.1rem;
-      border-radius: var(--radius-pill);
-      border: 1px solid var(--border);
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--muted);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-top: 0.8rem;
-    }
-
-    .hero-orb {
-      position: absolute;
-      right: -70px;
-      bottom: -70px;
-      width: 180px;
-      height: 180px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.08); 
-      opacity: 0.3; 
-      filter: blur(50px);
-      mix-blend-mode: normal; 
-    }
-
-    .hero-badge {
-      position: absolute;
-      top: -20px;
-      right: 20px;
-      padding: 0.45rem 1.1rem;
-      border-radius: var(--radius-pill);
-      background: var(--bg-soft);
-      border: 1px solid var(--border);
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--muted);
-    }
-
-    /* ================= SECTION BASE ================= */
-    section {
-      padding: 5rem 0; 
-      border-top: 1px solid var(--border);
-    }
-
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      gap: 2.5rem;
-      margin-bottom: 3.5rem;
-    }
-
-    .section-kicker {
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: var(--muted); 
-      margin-bottom: 0.8rem;
-      font-weight: 500;
-    }
-
-    .section-title {
-      font-size: 2.2rem;
-      letter-spacing: -0.04em;
-    }
-
-    .section-description {
-      font-size: 1rem;
-      color: var(--muted);
-      max-width: 28rem;
-      line-height: 1.7;
-    }
-
-    /* ================= PORTFÓLIO ================= */
-    .portfolio-grid {
+    
+    /* === GRID GERAL RESPONSIVO === */
+    .loop_grid-base {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 2rem;
+      grid-template-columns: 1fr; 
+      gap: 1.8rem; 
     }
-
-    .portfolio-card {
+    
+    /* === PORTFÓLIO === */
+    .loop_portfolio-card {
       background: var(--card);
       border-radius: var(--radius-lg);
       border: 1px solid var(--border);
@@ -410,32 +222,23 @@
       cursor: pointer;
     }
 
-    .portfolio-card:hover {
+    .loop_portfolio-card:hover {
       transform: translateY(-6px);
       box-shadow: var(--shadow-hover);
       border-color: var(--muted); 
     }
 
-    .portfolio-thumb {
-      height: 220px; 
+    .loop_portfolio-thumb {
+      height: 200px; 
       background: var(--bg-soft); 
       position: relative;
       overflow: hidden;
       display: flex; 
       align-items: center;
       justify-content: center;
-      color: var(--muted);
-      font-size: 1.5rem;
-      font-weight: 300;
     }
     
-    .portfolio-thumb::before { 
-        
-        position: absolute;
-        opacity: 0.5;
-    }
-
-    .portfolio-thumb::after {
+    .loop_portfolio-thumb::after {
       content: "";
       position: absolute;
       inset: 0;
@@ -446,406 +249,288 @@
         rgba(0, 0, 0, 0.5)
       );
       mix-blend-mode: multiply;
+      pointer-events: none; 
+    }
+    
+    .loop_portfolio-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; 
+        transition: transform var(--transition);
+    }
+    
+    .loop_portfolio-card:hover .loop_portfolio-thumb img {
+        transform: scale(1.05); 
     }
 
-    .portfolio-meta {
-      padding: 1.6rem 1.5rem 1.4rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.7rem;
+    .loop_portfolio-meta {
+      padding: 1.8rem 1.5rem 1.4rem; 
     }
 
-    .portfolio-tag {
-      font-size: 0.78rem;
+    .loop_portfolio-tag {
+      font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 0.18em;
       color: var(--muted); 
       font-weight: 500;
+      margin-bottom: 0.6rem;
     }
 
-    .portfolio-title {
+    .loop_portfolio-title {
       font-size: 1.2rem;
       color: var(--text);
+      margin-bottom: 0.8rem;
     }
 
-    .portfolio-desc {
-      font-size: 0.92rem;
+    .loop_portfolio-desc {
+      font-size: 0.9rem;
       color: var(--muted);
-      line-height: 1.5;
-    }
-
-    .portfolio-footer {
-      padding: 1.1rem 1.5rem 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.88rem;
-      color: var(--muted);
-      border-top: 1px solid var(--border);
-    }
-
-    .portfolio-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      color: var(--text); 
-      font-weight: 600;
-      transition: opacity var(--transition);
+      line-height: 1.6;
     }
     
-    .portfolio-link:hover {
-      opacity: 0.7;
+    .loop_portfolio-footer {
+        padding: 1.2rem 1.5rem;
+        border-top: 1px solid var(--border);
+        font-size: 0.88rem;
+        color: var(--muted);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
-
-    /* ================= DIFERENCIAIS ================= */
-    .pill-row {
+    
+    /* === DIFERENCIAIS E PROCESSO === */
+    .loop_pill-row {
       display: flex;
       flex-wrap: wrap;
       gap: 0.9rem;
-      margin-bottom: 2.5rem;
+      margin-bottom: 3rem;
     }
 
-    .pill {
-      padding: 0.55rem 1.1rem;
+    .loop_pill {
+      padding: 0.5rem 1rem;
       border-radius: var(--radius-pill);
       border: 1px solid var(--border);
       background: var(--bg-soft);
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       color: var(--muted);
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.4rem;
       font-weight: 500;
     }
-
-    .pill-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: var(--muted); 
-      box-shadow: 0 0 8px rgba(160, 160, 160, 0.5);
+    
+    .loop_feature-card {
+        padding: 1.8rem;
+        border-radius: var(--radius-lg);
+        background: var(--card);
+        border: 1px solid var(--border);
+        font-size: 0.95rem;
+        color: var(--muted);
+        line-height: 1.5;
+        box-shadow: var(--shadow-subtle);
     }
 
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1.8rem;
-    }
-
-    .feature-card {
-      padding: 1.8rem 1.8rem 1.6rem;
-      border-radius: var(--radius-lg);
-      background: var(--card);
-      border: 1px solid var(--border);
-      font-size: 0.95rem;
-      color: var(--muted);
-      line-height: 1.6;
-      transition: all var(--transition);
-      box-shadow: var(--shadow-subtle);
-    }
-
-    .feature-card h3 {
-      font-size: 1.15rem;
-      margin-bottom: 0.7rem;
-      color: var(--text);
-    }
-
-    .feature-card strong {
-      color: var(--text); 
-      font-size: 0.88rem;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      display: block;
-      margin-bottom: 0.4rem;
-    }
-
-    .feature-card:hover {
+    .loop_feature-card:hover {
       border-color: var(--muted); 
       transform: translateY(-5px);
       box-shadow: var(--shadow-hover);
-      background: var(--card-soft);
     }
-
-    /* ================= PROCESSO ================= */
-    .process-grid {
+    
+    /* PROCESSO */
+    .loop_process-grid {
       display: grid;
-      grid-template-columns: 1.1fr 1fr;
-      gap: 3.5rem;
+      grid-template-columns: 1fr;
+      gap: 2rem;
     }
 
-    .steps {
+    .loop_steps {
       display: grid;
-      gap: 1.4rem;
+      gap: 1rem;
     }
 
-    .step {
+    .loop_step {
       display: flex;
-      gap: 1.4rem;
-      padding: 1.4rem 1.5rem;
+      gap: 1rem;
+      padding: 1.5rem 1.2rem;
       border-radius: var(--radius-lg);
       background: var(--card);
       border: 1px solid var(--border);
       color: var(--muted);
-      font-size: 0.92rem;
-      align-items: flex-start;
-      transition: background var(--transition);
+      font-size: 0.9rem;
       box-shadow: var(--shadow-subtle);
     }
 
-    .step:hover {
-      background: var(--card-soft);
-    }
-
-    .step-number {
-      width: 32px;
-      height: 32px;
+    .loop_step-number {
+      min-width: 28px;
+      height: 28px;
       border-radius: 999px;
       border: 1px solid var(--muted); 
       background: var(--bg-soft);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       color: var(--text); 
       font-weight: 600;
     }
 
-    .step h3 {
-      font-size: 1.1rem;
-      color: var(--text);
-      margin-bottom: 0.5rem;
-    }
-
-    .step p {
-      line-height: 1.6;
-    }
-
-    .process-side-card {
-      padding: 2rem 2rem;
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border);
-      background: var(--card);
-      font-size: 0.95rem;
-      color: var(--muted);
-      box-shadow: var(--shadow-subtle);
-      line-height: 1.6;
-    }
-
-    .process-side-card h3 {
-      font-size: 1.2rem;
-      margin-bottom: 1rem;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.45rem 1rem;
-      border-radius: var(--radius-pill);
-      border: 1px solid var(--border);
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      margin-bottom: 1.2rem;
-      color: var(--muted);
+    .loop_process-side-card {
+        padding: 1.8rem;
+        border-radius: var(--radius-lg); 
+        background: var(--card); 
+        border: 1px solid var(--border); 
+        font-size: 0.95rem; 
+        color: var(--muted); 
+        height: 260px;
+        line-height: 1.6;
+        box-shadow: var(--shadow-subtle);
     }
     
-    .badge .pill-dot {
-        background: var(--muted);
-        box-shadow: none;
+    /* === FOOTER === */
+    .loop_footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 0 4rem; 
+      font-size: 0.8rem; 
+      color: var(--muted);
     }
 
-    /* ================= CTA FINAL ================= */
-    .cta-final {
-      margin-top: 2.5rem;
-    }
-
-    .cta-card {
-      padding: 3rem 2.8rem;
-      border-radius: var(--radius-lg);
-      background: var(--card);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-subtle);
+    .loop_footer-inner {
       display: flex;
       flex-direction: column;
-      gap: 1.8rem;
-      align-items: flex-start;
-    }
-
-    .cta-card h2 {
-      font-size: 2.2rem;
-      letter-spacing: -0.04em;
-    }
-
-    .cta-inline {
-      display: flex;
-      flex-wrap: wrap;
       gap: 1.5rem;
       align-items: center;
     }
 
-    .cta-note {
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-
-    /* ================= FOOTER ================= */
-    .footer {
-      border-top: 1px solid var(--border);
-      padding: 2.2rem 0 3.5rem;
-      font-size: 0.82rem;
-      color: var(--muted);
-    }
-
-    .footer-inner {
+    .loop_footer-links {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1.8rem;
+      gap: 1.5rem;
       flex-wrap: wrap;
+      justify-content: center;
     }
-
-    .footer-links {
-      display: flex;
-      gap: 1.6rem;
-      flex-wrap: wrap;
-    }
-
-    .footer-links a {
-      color: var(--muted);
-      transition: color var(--transition);
-    }
-
-    .footer-links a:hover {
+    
+    /* === WHATSAPP BOTÃO FLUTUANTE === */
+    .loop_whatsapp-float {
+      position: fixed;
+      width: 50px;
+      height: 50px;
+      bottom: 20px;
+      right: 20px;
+      background-color: var(--whatsapp);
       color: var(--text);
+      border-radius: 50px;
+      text-align: center;
+      font-size: 24px;
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s ease-in-out;
     }
 
-    /* ================= RESPONSIVO ================= */
-    @media (max-width: 960px) {
-      .hero-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-right {
-        order: -1;
-      }
-
-      .portfolio-grid,
-      .grid-3 {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .nav-inner {
-        gap: 1rem;
-      }
-
-      .nav-links {
-        display: none;
-      }
-      
-      .hero-metadata {
-        gap: 2rem;
-      }
+    .loop_whatsapp-float:hover {
+      transform: scale(1.1);
     }
 
-    @media (max-width: 720px) {
-      .container {
-        padding-inline: 1.2rem;
-      }
-      
-      .hero {
-        padding-top: 3.5rem;
-        padding-bottom: 4.5rem;
-      }
-      
-      .section-header {
-        margin-bottom: 2.5rem;
-      }
 
-      .portfolio-grid,
-      .grid-3 {
-        grid-template-columns: 1fr;
-      }
+    /* === MEDIA QUERIES (TABLET & DESKTOP) === */
+    @media (min-width: 720px) {
+        .loop_container {
+             padding: 0 1.5rem;
+        }
+        
+        .loop_section {
+            padding: 6rem 0; 
+        }
+        
+        .loop_section-header {
+            flex-direction: row;
+            align-items: flex-end;
+        }
 
-      .section-header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .process-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .cta-card {
-        padding: 2.2rem 1.8rem;
-      }
-      
-      .hero-title {
-        font-size: clamp(2.4rem, 6vw + 1rem, 3.5rem);
-      }
-      
-      .cta-card h2 {
-        font-size: clamp(1.8rem, 5vw + 1rem, 2.2rem);
-      }
+        .loop_grid-base {
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 2rem;
+        }
+        
+        .loop_nav-cta {
+            display: inline-flex; 
+        }
+        
+        .loop_hero-metadata {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .loop_hero-card {
+            margin-top: 0;
+        }
+        
+        .loop_footer-inner {
+            flex-direction: row;
+            justify-content: space-between;
+        }
     }
-    .nav-logo-text {
-  font-size: 1.3rem;
-  letter-spacing: 0.12em;
-  font-weight: 600;
-  color: var(--text);
-  text-transform: uppercase;
-}
-
+    
+    @media (min-width: 960px) {
+        .loop_hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .loop_grid-base.desktop-3-cols {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        
+        .loop_process-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 3.5rem;
+        }
+        
+        /* Força o terceiro card do portfólio aparecer no desktop */
+        .loop_portfolio-card:nth-child(3) {
+            display: flex !important; 
+        }
+    }
   </style>
 </head>
 <body>
-  <div class="page">
-    <header class="nav">
-  <div class="nav-inner">
+  <div class="loop_page">
+    
+    <header class="loop_nav">
+      <div class="loop_nav-inner">
+        <p class="loop_nav-logo-text">LOOP IDV</p>
+        <a href="https://wa.me/5511931025049" class="loop_btn-primary loop_nav-cta">
+          Falar com especialista <span>↗</span>
+        </a>
+      </div>
+    </header>
 
-    <p class="nav-logo-text">LOOP IDV</p>
-
-    <nav class="nav-links">
-      <a href="#sobre">Sobre</a>
-      <a href="#portfolio">Portfólio</a>
-      <a href="#diferenciais">Diferenciais</a>
-      <a href="#processo">Processo</a>
-    </nav>
-
-    <a href="https://wa.me/5511931025049" class="nav-cta">
-      Falar com especialista <span>↗</span>
-    </a>
-  </div>
-</header>
-
-
-    <main class="container">
-      <section class="hero" id="inicio">
-        <div class="hero-grid">
+    <main class="loop_container">
+      
+      <section class="loop_hero" id="inicio">
+        <div class="loop_hero-grid">
           <div>
-            <div class="hero-pill">
-              <span class="hero-pill-dot"></span>
-              LOOP - AGÊNCIA DIGITAL IDV
-            </div>
-            <h1 class="hero-title">
-              Landing pages com design premium e conversão garantida.
+            <span class="loop_section-kicker">LOOP - AGÊNCIA DIGITAL IDV</span>
+            <h1 class="loop_hero-title">
+              Landing pages com  design premium  e conversão garantida.
             </h1>
-            <p class="hero-subtitle">
-              A LOOP transforma sua presença online com páginas profissionais entregues em até 48h. Design sofisticado, copy persuasiva e foco estratégico em resultados para negócios que buscam excelência.
+            <p class="loop_hero-subtitle">
+              A LOOP transforma sua presença online com páginas profissionais entregues em até  48h . Design sofisticado, copy persuasiva e foco estratégico em resultados.
             </p>
 
-            <div class="hero-actions">
-              <a href="https://wa.me/5511931025049" class="btn-primary">
-                Solicitar proposta agora
-                <span>↗</span>
+            <div class="loop_hero-actions">
+              <a href="https://wa.me/5511931025049" class="loop_btn-primary">
+                Solicitar proposta agora <span>↗</span>
               </a>
-              <a href="#portfolio" class="btn-ghost">
-                Ver portfólio
-                <span>◆</span>
+              <a href="#portfolio" class="loop_btn-ghost">
+                Ver portfólio <span>◆</span>
               </a>
             </div>
 
-            <div class="hero-metadata">
+            <div class="loop_hero-metadata">
               <div>
                 <strong>48h de prazo padrão</strong>
                 Páginas completas, prontas para anúncios e vendas.
@@ -857,18 +542,16 @@
             </div>
           </div>
 
-          <div class="hero-right">
-            <div class="hero-card">
-              
-              <div class="hero-card-label">Resumo de resultados</div>
-              <h2 class="hero-card-title">
+          <div class="loop_hero-card" style="padding: 2.5rem; border-radius: var(--radius-lg); background: var(--card); border: 1px solid var(--border);">
+              <span class="loop_section-kicker">Resumo de resultados</span>
+              <h2 class="loop_section-title" style="font-size: 1.3rem;">
                 Campanhas ativas com páginas criadas pela LOOP.
               </h2>
-              <div class="hero-card-metric">
-                <strong>4,9</strong>
-                <span>avaliação média dos clientes</span>
+              <div style="margin-top: 1.5rem; font-size: 2.2rem; color: var(--accent); font-weight: 700; letter-spacing: -0.05em;">
+                4,9 
+                <span style="font-size: 0.9rem; color: var(--muted); font-weight: 400;">avaliação média dos clientes</span>
               </div>
-              <div class="hero-card-row">
+              <div style="display: flex; justify-content: space-between; gap: 1rem; margin-top: 1.5rem; font-size: 0.9rem; border-top: 1px solid var(--border); padding-top: 1.5rem;">
                 <div>
                   <strong>+120</strong><br />
                   páginas entregues
@@ -878,201 +561,167 @@
                   aumento na conversão
                 </div>
               </div>
-              <div class="hero-card-tag">
-                <span class="pill-dot"></span>
-                COMPROVADO POR DADOS
-              </div>
-              <div class="hero-orb"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="loop_section" id="portfolio">
+        <div class="loop_section-header">
+          <div>
+            <span class="loop_section-kicker">PORTFÓLIO DE ALTA PERFORMANCE</span>
+            <h2 class="loop_section-title">Projetos recentes que se destacaram no mercado.</h2>
+          </div>
+          
+        </div>
+
+        <div class="loop_grid-base desktop-3-cols">
+          <div class="loop_portfolio-card">
+            <div class="loop_portfolio-thumb">
+              <img src="escritorio.png" alt="Projeto — Escritório de Advocacia" />
+            </div>
+            <div class="loop_portfolio-meta">
+              <div class="loop_portfolio-tag">ADVOCACIA EMPRESARIAL</div>
+              <h3 class="loop_portfolio-title">
+                Site corporativo que elevou a autoridade.
+              </h3>
+              <p class="loop_portfolio-desc">
+                Design sóbrio e estrutura estratégica para transmitir confiança e especialização a clientes de alto valor.
+              </p>
+            </div>
+            <div class="loop_portfolio-footer">
+              Taxa de Conversão:  14.5% 
+            </div>
+          </div>
+
+          <div class="loop_portfolio-card">
+            <div class="loop_portfolio-thumb">
+              <img src="Captura de tela 2025-11-22 170014.png" alt="Projeto — Clínica Odontológica" />
+            </div>
+            <div class="loop_portfolio-meta">
+              <div class="loop_portfolio-tag">ODONTOLOGIA PREMIUM</div>
+              <h3 class="loop_portfolio-title">
+                Landing page moderna para clínica de estética dental.
+              </h3>
+              <p class="loop_portfolio-desc">
+                Visual clean, foco em tecnologia e humanização para captação de pacientes.
+              </p>
+            </div>
+            <div class="loop_portfolio-footer">
+              Taxa de Conversão:  19.3% 
+            </div>
+          </div>
+          
+          <div class="loop_portfolio-card" style="display: none;"> 
+            <div class="loop_portfolio-thumb">
+              <img src="Captura de tela 2025-11-22 165953.png" alt="Projeto — Imobiliária de Alto Padrão" />
+            </div>
+            <div class="loop_portfolio-meta">
+              <div class="loop_portfolio-tag">IMOBILIÁRIA & ALTO PADRÃO</div>
+              <h3 class="loop_portfolio-title">
+                Página de apresentação para imóveis de luxo.
+              </h3>
+              <p class="loop_portfolio-desc">
+                Layout elegante com destaque visual para propriedades premium e foco em leads qualificados.
+              </p>
+            </div>
+            <div class="loop_portfolio-footer">
+              Taxa de Conversão: 11.7%
             </div>
           </div>
         </div>
       </section>
 
-<section id="portfolio">
-  <div class="section-header">
-    <div>
-      <span class="section-kicker">PORTFÓLIO DE ALTA PERFORMANCE</span>
-      <h2 class="section-title">Projetos recentes que se destacaram no mercado.</h2>
-    </div>
-    <a href="#" class="btn-ghost">
-      Ver todos os casos <span>↗</span>
-    </a>
-  </div>
-<section id="portfolio">
-  <div class="section-header">
-    <div>
-      <span class="section-kicker">PORTFÓLIO DE ALTA PERFORMANCE</span>
-      <h2 class="section-title">Projetos recentes que se destacaram no mercado.</h2>
-    </div>
-    <a href="#" class="btn-ghost">
-      Ver todos os casos <span>↗</span>
-    </a>
-  </div>
-
-  <div class="portfolio-grid">
-
-    <!-- ADVOCACIA -->
-    <div class="portfolio-card">
-      <div class="portfolio-thumb">
-        <img src="escritorio.png" alt="Projeto — Escritório de Advocacia" />
-      </div>
-      <div class="portfolio-meta">
-        <div class="portfolio-tag">ADVOCACIA EMPRESARIAL</div>
-        <h3 class="portfolio-title">
-          Site corporativo que elevou a autoridade e aumentou a captação de casos de alto valor.
-        </h3>
-        <p class="portfolio-desc">
-          Design sóbrio, estrutura estratégica e copy profissional — ideal para escritórios que precisam
-          transmitir confiança e especialização.
-        </p>
-      </div>
-      <div class="portfolio-footer">
-        Taxa de Conversão: <strong>14.5%</strong>
-        
-      </div>
-    </div>
-
-    <!-- ODONTO -->
-    <div class="portfolio-card">
-      <div class="portfolio-thumb">
-        <img src="Captura de tela 2025-11-22 170014.png" alt="Projeto — Clínica Odontológica" />
-      </div>
-      <div class="portfolio-meta">
-        <div class="portfolio-tag">ODONTOLOGIA PREMIUM</div>
-        <h3 class="portfolio-title">
-          Landing page moderna para clínica de estética dental de alto padrão.
-        </h3>
-        <p class="portfolio-desc">
-          Visual clean, foco em tecnologia e humanização. Estrutura pensada para captação de pacientes
-          e demonstração de serviços premium.
-        </p>
-      </div>
-      <div class="portfolio-footer">
-        Taxa de Conversão: <strong>19.3%</strong>
-        
-      </div>
-    </div>
-
-    <div class="portfolio-card">
-      <div class="portfolio-thumb">
-        <img src="Captura de tela 2025-11-22 165953.png" alt="Projeto — Imobiliária de Alto Padrão" />
-      </div>
-      <div class="portfolio-meta">
-        <div class="portfolio-tag">IMOBILIÁRIA & ALTO PADRÃO</div>
-        <h3 class="portfolio-title">
-          Página de apresentação para imóveis de luxo com foco em captação de leads qualificados.
-        </h3>
-        <p class="portfolio-desc">
-          Layout elegante, destaque visual para propriedades premium e integração direta com WhatsApp.
-        </p>
-      </div>
-      <div class="portfolio-footer">
-        Taxa de Conversão: <strong>11.7%</strong>
-        
-      </div>
-    </div>
-
-  </div>
-</section>
-
-
-
-
-      <section id="diferenciais">
-        <div class="section-header">
+      <section class="loop_section" id="diferenciais">
+        <div class="loop_section-header">
           <div>
-            <span class="section-kicker">NOSSA VANTAGEM COMPETITIVA</span>
-            <h2 class="section-title">Por que a LOOP é a parceira ideal para o seu crescimento.</h2>
+            <span class="loop_section-kicker">NOSSA VANTAGEM COMPETITIVA</span>
+            <h2 class="loop_section-title">Por que a LOOP é a parceira ideal.</h2>
           </div>
-          <p class="section-description">
-            Não entregamos apenas código. Entregamos uma experiência de marca elevada, com estratégia de copy e design otimizado para a máxima performance em todos os dispositivos.
-          </p>
         </div>
         
-        <div class="pill-row">
-            <div class="pill"><span class="pill-dot"></span>Design Premium</div>
-            <div class="pill"><span class="pill-dot"></span>Entrega Rápida (48h)</div>
-            <div class="pill"><span class="pill-dot"></span>Otimização para SEO/Anúncios</div>
-            <div class="pill"><span class="pill-dot"></span>Copy Persuasiva Inclusa</div>
-            <div class="pill"><span class="pill-dot"></span>Responsividade Total</div>
+        <div class="loop_pill-row">
+            <div class="loop_pill">Design Premium</div>
+            <div class="loop_pill">Entrega Rápida (48h)</div>
+            <div class="loop_pill">Otimização para SEO/Anúncios</div>
+            <div class="loop_pill">Copy Persuasiva Inclusa</div>
+            <div class="loop_pill">Responsividade Total</div>
         </div>
         
-        <div class="grid-3">
-          <div class="feature-card">
-            <strong>Experiência</strong>
+        <div class="loop_grid-base desktop-3-cols">
+          <div class="loop_feature-card">
+            <strong class="loop_section-kicker">Experiência</strong>
             <h3>Foco Total em Landing Pages</h3>
-            <p>Somos especialistas. Nossa experiência não está diluída em diversos serviços, mas focada em um só objetivo: construir a melhor página de conversão para você.</p>
+            <p>Somos especialistas. Nossa experiência é focada em construir a melhor página de conversão para você.</p>
           </div>
-          <div class="feature-card">
-            <strong>Qualidade</strong>
+          <div class="loop_feature-card">
+            <strong class="loop_section-kicker">Qualidade</strong>
             <h3>Design que Gera Autoridade</h3>
             <p>Usamos o minimalismo para transmitir luxo e confiança. Seu cliente reconhecerá seu profissionalismo no primeiro segundo.</p>
           </div>
-          <div class="feature-card">
-            <strong>Velocidade</strong>
+          <div class="loop_feature-card">
+            <strong class="loop_section-kicker">Velocidade</strong>
             <h3>Entrega Rápida e Profissional</h3>
-            <p>Metodologia de trabalho otimizada que garante qualidade de ponta em um tempo recorde. Seu funil de vendas não pode esperar.</p>
+            <p>Metodologia de trabalho otimizada que garante qualidade de ponta em um tempo recorde (48h).</p>
           </div>
         </div>
       </section>
 
-      <section id="processo">
-        <div class="section-header">
+      <section class="loop_section" id="processo">
+        <div class="loop_section-header">
           <div>
-            <span class="section-kicker">NOSSO FLUXO DE TRABALHO</span>
-            <h2 class="section-title">Construção e entrega em 4 passos.</h2>
+            <span class="loop_section-kicker">NOSSO FLUXO DE TRABALHO</span>
+            <h2 class="loop_section-title">Construção e entrega em 4 passos.</h2>
           </div>
         </div>
         
-        <div class="process-grid">
-          <div class="steps">
-            <div class="step">
-              <div class="step-number">1</div>
+        <div class="loop_process-grid">
+          <div class="loop_steps">
+            <div class="loop_step">
+              <div class="loop_step-number">1</div>
               <div>
                 <h3>Kick-off e Briefing Detalhado</h3>
-                <p>Alinhamos objetivos de negócio, público-alvo e definimos a estrutura de copy e os elementos visuais essenciais. É o mapa da nossa jornada.</p>
+                <p>Alinhamos objetivos, público-alvo e definimos a estrutura de copy e os elementos visuais essenciais.</p>
               </div>
             </div>
-            <div class="step">
-              <div class="step-number">2</div>
+            <div class="loop_step">
+              <div class="loop_step-number">2</div>
               <div>
                 <h3>Design e Aprovação da Estrutura</h3>
-                <p>Criamos o design clean e a copy persuasiva. Você revisa e aprovamos juntos a estrutura da página antes da codificação.</p>
+                <p>Criamos o design clean e a copy. Você revisa e aprovamos juntos antes da codificação.</p>
               </div>
             </div>
-            <div class="step">
-              <div class="step-number">3</div>
+            <div class="loop_step">
+              <div class="loop_step-number">3</div>
               <div>
                 <h3>Codificação e Otimização (48h)</h3>
-                <p>A página é codificada com foco em velocidade (SEO) e responsividade para celular. Garantimos performance máxima.</p>
+                <p>A página é codificada com foco em velocidade (SEO) e responsividade para celular. Performance máxima.</p>
               </div>
             </div>
-            <div class="step">
-              <div class="step-number">4</div>
+            <div class="loop_step">
+              <div class="loop_step-number">4</div>
               <div>
                 <h3>Revisão Final e Publicação</h3>
-                <p>Aprovação final do cliente, testes de conversão e publicação no seu domínio. Acompanhamento dos primeiros resultados.</p>
+                <p>Aprovação final, testes de conversão e publicação no seu domínio. Acompanhamento inicial.</p>
               </div>
             </div>
           </div>
           
-          <div class="process-side-card">
-            <div class="badge"><span class="pill-dot"></span>METODOLOGIA ÁGIL</div>
-            <h3>Qualidade de Agência, Velocidade de Freelancer.</h3>
-            <p>Nosso processo é desenhado para ser enxuto. Eliminamos burocracias desnecessárias para que você comece a gerar leads o mais rápido possível.</p>
-            <p style="margin-top: 1rem;">Compromisso com o Prazo: A entrega do código final é sempre prioridade, sem atrasos que comprometam suas campanhas.</p>
+          <div class="loop_process-side-card">
+            <div class="loop_pill" style="margin-bottom: 1rem; border-color: var(--accent); color: var(--accent);">METODOLOGIA ÁGIL</div>
+            <h3 style="font-size: 1.2rem; color: var(--text); margin-bottom: 0.8rem;">Qualidade de Agência, Velocidade de Freelancer.</h3>
+            <p>Nosso processo é desenhado para ser enxuto, eliminando burocracias para que você comece a gerar leads o mais rápido possível.</p>
           </div>
         </div>
       </section>
       
-      <section class="cta-final">
-        <div class="cta-card">
-          <h2>Pronto para lançar a sua próxima campanha de sucesso?</h2>
-          <div class="cta-inline">
-            <a href="https://wa.me/5511931025049" class="btn-primary">
+      <section class="loop_section" style="padding-top: 4rem; padding-bottom: 4rem;">
+        <div class="loop_hero-card" style="padding: 2.5rem; border-radius: var(--radius-lg); background: var(--card); border: 1px solid var(--border);">
+          <h2 class="loop_section-title" style="font-size: clamp(1.8rem, 5vw + 0.5rem, 2.2rem);">Pronto para lançar a sua próxima campanha de sucesso?</h2>
+          <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; margin-top: 1.5rem;">
+            <a href="https://wa.me/5511931025049" class="loop_btn-primary">
               Iniciar meu projeto <span>↗</span>
             </a>
-            <p class="cta-note">
+            <p style="font-size: 0.9rem; color: var(--muted);">
               Fale com um especialista. Sem compromisso e sem enrolação.
             </p>
           </div>
@@ -1081,18 +730,23 @@
 
     </main>
 
-    <footer class="footer">
-      <div class="container footer-inner">
+    <footer class="loop_footer">
+      <div class="loop_container loop_footer-inner">
         <div>
           &copy; 2025 LOOP - IDV Agência Digital. Todos os direitos reservados.
         </div>
-        <div class="footer-links">
+        <div class="loop_footer-links">
           <a href="#">Termos de Serviço</a>
           <a href="#">Política de Privacidade</a>
           <a href="#">Contato e Suporte</a>
         </div>
       </div>
     </footer>
+    
+    <a href="https://wa.me/5511931025049" class="loop_whatsapp-float" target="_blank" aria-label="Falar conosco pelo WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    
   </div>
 </body>
 </html>
